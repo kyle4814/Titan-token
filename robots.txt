@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kyle4814.github.io/Titan-token/sitemap.xml
