@@ -1,0 +1,23 @@
+{
+  "name": "Base Token List",
+  "timestamp": "2026-03-17T00:00:00Z",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "tokens": [
+    {
+      "chainId": 8453,
+      "address": "0x377C542E5A50908d94500f266fa7e4F5d033fBa7",
+      "name": "Titan",
+      "symbol": "TITAN",
+      "decimals": 18,
+      "logoURI": "https://raw.githubusercontent.com/kylegraham/titan-token/main/logo.png",
+      "tags": ["defi", "utility"],
+      "extensions": {
+        "description": "Titan — Base L2 utility token for QuadNode autonomous infrastructure"
+      }
+    }
+  ]
+}

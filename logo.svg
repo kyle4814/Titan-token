@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#DAA520"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF8DC" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="248" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.3"/>
+
+  <!-- Diamond shape -->
+  <polygon points="256,80 400,256 256,432 112,256" fill="url(#gold)" opacity="0.9"/>
+
+  <!-- Diamond facet lines -->
+  <line x1="256" y1="80" x2="176" y2="256" stroke="#0a0a1a" stroke-width="2" opacity="0.3"/>
+  <line x1="256" y1="80" x2="336" y2="256" stroke="#0a0a1a" stroke-width="2" opacity="0.3"/>
+  <line x1="112" y1="256" x2="400" y2="256" stroke="#0a0a1a" stroke-width="2" opacity="0.3"/>
+
+  <!-- Shine highlight on upper-left facet -->
+  <polygon points="256,80 112,256 176,256" fill="url(#shine)"/>
+
+  <!-- TITAN text -->
+  <text x="256" y="272" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="72" font-weight="900" fill="#0a0a1a" letter-spacing="8" opacity="0.7">TITAN</text>
+  <text x="256" y="270" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="72" font-weight="900" fill="#FFF8DC" letter-spacing="8">TITAN</text>
+</svg>
