@@ -14,7 +14,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--gold:#D4AF37;--gold-dim:#8B7225;--diamond:#B9F2FF;--black:#000000;--dark:#0A0A0A;--card:#0D0D0D;--border:#1A1A1A;--text:#E8E8E8;--text-dim:#888}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6}
+body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 /* Scrollbar */
 ::-webkit-scrollbar{width:6px}
@@ -23,7 +23,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;ov
 
 /* Diamond dust particles — blue */
 .sparkle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.sparkle{position:absolute;border-radius:50%;opacity:0;animation:sparkle-float linear infinite;box-shadow:0 0 6px 2px rgba(185,242,255,0.3)}
+.sparkle{position:absolute;border-radius:50%;opacity:0;animation:sparkle-float linear infinite;box-shadow:0 0 6px 2px rgba(185,242,255,0.3);will-change:transform,opacity;contain:strict}
 .sparkle.diamond{width:6px;height:6px;background:transparent;border:1px solid var(--diamond);transform:rotate(45deg);border-radius:1px;box-shadow:0 0 8px 2px rgba(185,242,255,0.4),inset 0 0 3px rgba(185,242,255,0.2)}
 @keyframes sparkle-float{0%{opacity:0;transform:translateY(100vh) scale(0) rotate(0deg)}10%{opacity:0.9}30%{opacity:0.4}50%{opacity:0.7}70%{opacity:0.3}90%{opacity:0.8}100%{opacity:0;transform:translateY(-10vh) scale(1.2) rotate(180deg)}}
 @keyframes sparkle-drift{0%{opacity:0;transform:translate(0,100vh) scale(0)}15%{opacity:0.6}50%{opacity:0.2;transform:translate(30px,50vh) scale(1)}85%{opacity:0.5}100%{opacity:0;transform:translate(-20px,-10vh) scale(0.8)}}
@@ -44,7 +44,7 @@ section{position:relative;z-index:1;padding:80px 20px}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:40px}
-.hero-content{animation:fadeUp 1.2s ease 1.8s both}
+.hero-content{animation:fadeUp 0.8s ease 1.2s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
 .titan-logo{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,10vw,7rem);letter-spacing:0.15em;background:linear-gradient(135deg,var(--gold),#FFF8DC,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none;margin-bottom:10px;position:relative}
@@ -135,54 +135,133 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 .reveal{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ===== MOBILE OPTIMIZATION ===== */
+/* ===== MOBILE — TABLET (max 768px) ===== */
+@media(max-width:768px){
+  section{padding:60px 20px}
+  .hero{min-height:100vh;min-height:100dvh}
+  .chart-container iframe{height:350px}
+  .stats-row{grid-template-columns:1fr 1fr;gap:12px}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+/* ===== MOBILE — STANDARD (max 480px) ===== */
 @media(max-width:480px){
-  section{padding:50px 14px}
-  .hero{min-height:90vh;min-height:90dvh;padding-top:20px}
-  .titan-logo{font-size:2.6rem;letter-spacing:0.08em}
-  .omega{font-size:2rem}
-  .hero-sub{font-size:0.8rem;margin:14px 0 28px}
-  .hero-links{gap:10px}
-  .hero-links a{padding:10px 16px;font-size:0.7rem;gap:6px;width:100%}
-  .hero-links a svg{width:15px;height:15px}
-  .section-header h2{font-size:1.2rem}
-  .section-header{margin-bottom:30px}
-  .chart-container iframe{height:300px}
-  .stats-row{grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-  .stat-card{padding:16px 10px}
-  .stat-card .value{font-size:1.1rem}
-  .stat-card .label{font-size:0.65rem}
-  .story-text{font-size:0.85rem;line-height:1.7}
-  .constitution{padding:20px 16px}
-  .constitution h3{font-size:0.95rem}
-  .principle{padding:10px 0;gap:10px}
-  .principle .num{font-size:0.95rem;min-width:22px}
-  .principle .text{font-size:0.8rem}
-  footer{padding:40px 14px 20px}
-  .footer-grid{gap:24px;margin-bottom:24px}
-  .footer-brand .brand-name{font-size:1.1rem}
-  .contract-box{padding:14px}
-  .contract-box .address{font-size:0.55rem}
-  .contract-box .chain-badge{font-size:0.6rem}
+  section{padding:44px 18px}
+  .hero{min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);padding-top:16px}
+  .hero-content{padding:0 4px}
+
+  /* Title — let clamp work, don't override bigger */
+  .titan-logo{letter-spacing:0.06em;margin-bottom:6px}
+  .omega{margin-bottom:4px}
+  .omega::before,.omega::after{display:none}
+
+  /* Subtitle — bump contrast */
+  .hero-sub{font-size:0.78rem;margin:10px 0 24px;color:#aaa;letter-spacing:0.06em}
+
+  /* Buttons — 2-col grid so TELEGRAM+GPT pair, DEXSCREENER full width */
+  .hero-links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .hero-links a{padding:12px 10px;font-size:0.7rem;gap:6px;justify-content:center;min-height:48px}
+  .hero-links a:last-child{grid-column:1/-1}
+  .hero-links a svg{width:15px;height:15px;flex-shrink:0}
+
+  /* Section headers */
+  .section-header h2{font-size:1.15rem;letter-spacing:0.04em}
+  .section-header{margin-bottom:24px}
+  .section-header .diamond-line{width:40px;margin-top:10px}
+
+  /* Chart — shorter so it doesn't dominate */
+  .chart-container iframe{height:240px}
+  .chart-container{border-radius:6px}
+
+  /* Stats — 2x2 grid, tighter */
+  .stats-row{grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .stat-card{padding:14px 8px;border-radius:6px}
+  .stat-card .value{font-size:1rem}
+  .stat-card .label{font-size:0.6rem;letter-spacing:0.1em}
+
+  /* Feed */
+  .feed-frame{border-radius:6px}
+
+  /* Story text */
+  .story-text{font-size:0.85rem;line-height:1.75}
+  .story-text p{margin-bottom:16px}
+
+  /* Constitution — needs breathing room */
+  .constitution{padding:20px 14px;border-radius:6px}
+  .constitution h3{font-size:0.9rem;margin-bottom:16px}
+  .principle{padding:11px 0;gap:10px}
+  .principle .num{font-size:0.9rem;min-width:20px}
+  .principle .text{font-size:0.78rem;line-height:1.6}
+
+  /* Footer */
+  footer{padding:36px 18px 20px}
+  .footer-grid{gap:20px;margin-bottom:20px}
+  .footer-brand .brand-name{font-size:1rem}
+  .footer-brand p{font-size:0.8rem}
+  .footer-col h4{font-size:0.7rem;margin-bottom:10px}
+  .footer-col a{font-size:0.8rem;padding:6px 0}
+
+  /* Contract address — readable, not tiny */
+  .contract-box{padding:16px 12px;border-radius:6px}
+  .contract-box .label{font-size:0.6rem;letter-spacing:0.12em;margin-bottom:6px}
+  .contract-box .address{font-size:0.68rem;line-height:1.5;padding:4px 0}
+  .contract-box .chain-badge{font-size:0.6rem;margin-top:6px;padding:3px 10px}
+
+  /* Vault */
   .vault-emblem{font-size:2.5rem}
   .vault-left,.vault-right{border-width:1px}
+
+  /* Copy toast — above home indicator */
+  .copy-toast{bottom:50px;font-size:0.8rem;padding:8px 20px}
+
+  /* Dividers */
+  .section-divider{opacity:0.5}
 }
+
+/* ===== MOBILE — SMALL (max 360px, iPhone SE / budget Android) ===== */
 @media(max-width:360px){
-  .titan-logo{font-size:2.2rem}
-  .hero-links a{padding:9px 12px;font-size:0.65rem}
-  .stats-row{grid-template-columns:1fr}
-  .contract-box .address{font-size:0.5rem}
+  section{padding:36px 16px}
+  .hero-content{padding:0 2px}
+  .hero-links{grid-template-columns:1fr;gap:8px}
+  .hero-links a:last-child{grid-column:auto}
+  .hero-links a{padding:11px 8px;font-size:0.65rem}
+  .hero-sub{font-size:0.72rem}
+  .stats-row{grid-template-columns:1fr 1fr;gap:6px}
+  .stat-card{padding:12px 6px}
+  .stat-card .value{font-size:0.9rem}
+  .stat-card .label{font-size:0.55rem}
+  .chart-container iframe{height:200px}
+  .constitution{padding:16px 12px}
+  .principle .text{font-size:0.72rem}
+  .contract-box .address{font-size:0.6rem}
+  .footer-bottom p{font-size:0.65rem}
 }
-/* Touch targets — minimum 44px */
-@media(hover:none){
-  .hero-links a{min-height:44px}
+
+/* Touch targets — Apple HIG minimum 44px */
+@media(pointer:coarse){
+  .hero-links a{min-height:48px}
   .footer-col a{min-height:44px;display:flex;align-items:center}
   .contract-box .address{min-height:44px;display:flex;align-items:center;justify-content:center}
+  .copy-toast{bottom:50px}
 }
+
 /* Safe area for notched phones */
 @supports(padding:env(safe-area-inset-bottom)){
   footer{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
-  .hero{padding-top:calc(20px + env(safe-area-inset-top))}
+  .copy-toast{bottom:calc(50px + env(safe-area-inset-bottom))}
+  .hero{padding-top:env(safe-area-inset-top)}
+}
+
+/* Landscape phone — don't make hero full height */
+@media(max-width:768px) and (orientation:landscape){
+  .hero{min-height:auto;padding:60px 20px}
+  .chart-container iframe{height:200px}
+}
+
+/* Reduce motion for accessibility + battery */
+@media(prefers-reduced-motion:reduce){
+  .sparkle,.omega,.vault-left,.vault-right,.vault-emblem,.reveal{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
+  .sparkle-field{display:none}
 }
 </style>
 </head>
@@ -232,8 +311,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
     </div>
     <div class="feed-frame reveal">
       <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="titanos4814/1" data-width="100%" data-dark="1" data-color="D4AF37" data-dark-color="D4AF37"></script>
-      <div style="padding:20px;text-align:center">
-        <a href="https://t.me/titanos4814" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.9rem;letter-spacing:0.1em">
+      <div style="padding:14px 12px;text-align:center">
+        <a href="https://t.me/titanos4814" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:clamp(0.75rem,2vw,0.9rem);letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center">
           VIEW FULL CHANNEL →
         </a>
       </div>
@@ -367,15 +446,15 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 <script>
 // Vault opening
 window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('vault').classList.add('vault-open'), 600);
-  setTimeout(() => document.getElementById('vault').style.display = 'none', 2200);
+  setTimeout(() => document.getElementById('vault').classList.add('vault-open'), 400);
+  setTimeout(() => document.getElementById('vault').style.display = 'none', 1800);
 });
 
 // Blue diamond dust
 (function initSparkles() {
   const field = document.getElementById('sparkles');
-  const isMobile = window.innerWidth < 600;
-  const count = isMobile ? 25 : 50;
+  const w = window.innerWidth;
+  const count = w < 380 ? 12 : w < 600 ? 20 : 50;
   const blues = ['#B9F2FF','#87CEEB','#7EC8E3','#A0D2DB','#C6E7FF','#5DADE2'];
   for (let i = 0; i < count; i++) {
     const s = document.createElement('div');
