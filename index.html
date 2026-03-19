@@ -21,11 +21,10 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;fo
 ::-webkit-scrollbar-track{background:var(--black)}
 ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
 
-/* Sigil dust particles */
+/* Subtle diamond dots */
 .sparkle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.sparkle{position:absolute;border-radius:50%;opacity:0;animation:sparkle-float linear infinite;box-shadow:0 0 4px 1px rgba(185,242,255,0.15);will-change:transform,opacity;contain:strict}
-@keyframes sparkle-float{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:0.3}50%{opacity:0.2}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
-@keyframes sparkle-drift{0%{opacity:0;transform:translate(0,100vh) scale(0)}15%{opacity:0.25}50%{opacity:0.15;transform:translate(15px,50vh) scale(1)}100%{opacity:0;transform:translate(-10px,-10vh) scale(0.8)}}
+.sparkle{position:absolute;border-radius:50%;opacity:0;animation:sparkle-float linear infinite;will-change:transform,opacity;contain:strict}
+@keyframes sparkle-float{0%{opacity:0;transform:translateY(100vh)}10%{opacity:0.1}50%{opacity:0.1}90%{opacity:0.05}100%{opacity:0;transform:translateY(-10vh)}}
 
 /* Vault door opening animation */
 .vault-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:none}
@@ -43,7 +42,6 @@ section{position:relative;z-index:1;padding:80px 20px}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding-top:clamp(80px,15vh,180px);padding-bottom:20px;position:relative;overflow:hidden}
-.hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .hero-content{animation:fadeUp 0.8s ease 1.2s both;position:relative;z-index:1}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
@@ -256,6 +254,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
   .sparkle,.omega,.vault-left,.vault-right,.vault-emblem,.reveal{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
   .sparkle-field{display:none}
 }
+
 </style>
 </head>
 <body>
@@ -272,7 +271,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 
 <!-- HERO -->
 <section class="hero">
-  <canvas class="hero-canvas" id="crystalMatrix"></canvas>
   <div class="hero-content">
     <div class="titan-logo">TITANOS</div>
     <div class="omega">Ω</div>
@@ -498,23 +496,21 @@ window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('vault').style.display = 'none', 1800);
 });
 
-// Subtle dust motes
+// Minimal diamond dots — max 30, tiny, slow, 10% opacity
 (function initSparkles() {
   const field = document.getElementById('sparkles');
   const w = window.innerWidth;
-  const count = w < 380 ? 4 : w < 768 ? 6 : 15;
+  const count = w < 480 ? 10 : w < 768 ? 18 : 30;
   for (let i = 0; i < count; i++) {
     const s = document.createElement('div');
     s.className = 'sparkle';
     s.style.left = Math.random() * 100 + '%';
-    const anim = Math.random() > 0.5 ? 'sparkle-float' : 'sparkle-drift';
-    s.style.animationName = anim;
-    s.style.animationDuration = (12 + Math.random() * 20) + 's';
-    s.style.animationDelay = Math.random() * 25 + 's';
-    const size = (1 + Math.random() * 2) + 'px';
+    s.style.animationName = 'sparkle-float';
+    s.style.animationDuration = (20 + Math.random() * 30) + 's';
+    s.style.animationDelay = Math.random() * 30 + 's';
+    const size = (2 + Math.random() * 2) + 'px';
     s.style.width = s.style.height = size;
-    s.style.background = '#B9F2FF';
-    s.style.boxShadow = '0 0 3px 1px rgba(185,242,255,0.15)';
+    s.style.background = 'rgba(255,255,255,0.8)';
     field.appendChild(s);
   }
 })();
@@ -542,93 +538,6 @@ function copyContract() {
   }
 }
 
-// Sigil Matrix — sparse temple dust
-(function crystalMatrix() {
-  const canvas = document.getElementById('crystalMatrix');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-  const sigils = ['Ω','∞','Σ','Φ','Ψ','∂','△'];
-  const isMobile = window.innerWidth < 768;
-  // 70% reduction: 135→40 desktop, 52→16 mobile
-  const PARTICLE_COUNT = isMobile ? 16 : 40;
-  const ICE = '#B9F2FF';
-  const GOLD = '#D4AF37';
-
-  function resize() {
-    const hero = canvas.parentElement;
-    W = canvas.width = hero.offsetWidth;
-    H = canvas.height = hero.offsetHeight;
-  }
-
-  function createParticle() {
-    const isGold = Math.random() < 0.3;
-    // Font size 10-20px — small and graceful
-    const size = 10 + Math.random() * 10;
-    return {
-      x: Math.random() * W,
-      y: -size - Math.random() * H * 0.5,
-      size: size,
-      speed: 0.05 + Math.random() * 0.12, // barely moving — dust in a temple
-      opacity: isGold ? 0.20 : 0.30, // ice 30%, gold 20%
-      rotation: 0,
-      rotSpeed: (Math.random() - 0.5) * 0.001,
-      color: isGold ? GOLD : ICE,
-      glow: isGold ? 'rgba(212,175,55,' : 'rgba(185,242,255,',
-      symbol: sigils[Math.floor(Math.random() * sigils.length)],
-      drift: (Math.random() - 0.5) * 0.08 // very slow lateral drift
-    };
-  }
-
-  function init() {
-    resize();
-    particles = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const p = createParticle();
-      p.y = Math.random() * H;
-      particles.push(p);
-    }
-  }
-
-  function drawSigil(p) {
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rotation * 0.1);
-    ctx.globalAlpha = p.opacity;
-    // Soft subtle glow — whisper not shout
-    ctx.shadowColor = p.glow + '0.3)';
-    ctx.shadowBlur = 8;
-    ctx.fillStyle = p.color;
-    ctx.font = '300 ' + p.size + 'px Cinzel, serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(p.symbol, 0, 0);
-    ctx.restore();
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, W, H);
-
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.y += p.speed;
-      p.x += p.drift;
-      p.rotation += p.rotSpeed;
-
-      drawSigil(p);
-
-      if (p.y > H + p.size * 2) {
-        particles[i] = createParticle();
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  init();
-  animate();
-  window.addEventListener('resize', resize);
-})();
 </script>
 </body>
 </html>
