@@ -138,7 +138,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 /* ===== MOBILE — TABLET (max 768px) ===== */
 @media(max-width:768px){
   section{padding:60px 20px}
-  .hero{min-height:60vh;min-height:60dvh}
+  .hero{min-height:auto;max-height:50vh;padding-bottom:0;margin-bottom:0;overflow:visible}
   .chart-container iframe{height:350px}
   .stats-row{grid-template-columns:1fr 1fr;gap:12px}
   .footer-grid{grid-template-columns:1fr}
@@ -147,7 +147,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 /* ===== MOBILE — STANDARD (max 480px) ===== */
 @media(max-width:480px){
   section{padding:44px 18px}
-  .hero{min-height:auto;padding-top:50px;padding-bottom:30px}
+  .hero{min-height:auto;max-height:50vh;padding-top:50px;padding-bottom:0;margin-bottom:0}
   .hero-content{padding:0 4px}
 
   /* Title — compact for 375px */
@@ -250,7 +250,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 
 /* Landscape phone — don't make hero full height */
 @media(max-width:768px) and (orientation:landscape){
-  .hero{min-height:auto;padding:60px 20px}
+  .hero{min-height:auto;max-height:50vh;padding:60px 20px 0;margin-bottom:0}
   .chart-container iframe{height:200px}
 }
 
