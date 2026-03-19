@@ -48,7 +48,7 @@ section{position:relative;z-index:1;padding:80px 20px}
 .hero-content{animation:fadeUp 0.8s ease 1.2s both;position:relative;z-index:1}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
-.titan-logo{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,10vw,7rem);letter-spacing:0.15em;background:linear-gradient(135deg,var(--gold),#FFF8DC,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none;margin-bottom:10px;position:relative}
+.titan-logo{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,10vw,7rem);letter-spacing:0.15em;background:linear-gradient(135deg,var(--gold),#FFF8DC,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;position:relative;filter:drop-shadow(0 0 30px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.2))}
 
 /* Animated Omega */
 .omega{display:inline-block;font-size:clamp(2.5rem,8vw,5rem);color:var(--diamond);position:relative;animation:omega-pulse 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(185,242,255,0.4))}
@@ -559,12 +559,15 @@ function copyContract() {
   const canvas = document.getElementById('crystalMatrix');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-  const symbols = ['Ω','◇','△','∞','Σ','Φ','Ψ','∂'];
+  let W, H, particles = [], foregroundDiamonds = [];
+  const symbols = ['Ω','◇','△','∞','Σ','Φ','Ψ'];
   const isMobile = window.innerWidth < 768;
-  const PARTICLE_COUNT = isMobile ? 35 : 90;
+  // 50% more particles: 90→135 desktop, 35→52 mobile
+  const PARTICLE_COUNT = isMobile ? 52 : 135;
+  const FOREGROUND_COUNT = isMobile ? 3 : 6;
   const ICE = '#B9F2FF';
   const GOLD = '#D4AF37';
+  let scanY = 0; // gold scan line position
 
   function resize() {
     const hero = canvas.parentElement;
@@ -575,16 +578,17 @@ function copyContract() {
   function createParticle() {
     const isGold = Math.random() < 0.3;
     const color = isGold ? GOLD : ICE;
-    const size = 8 + Math.random() * 18;
-    const isSymbol = Math.random() < 0.6;
+    // 3x BIGGER — clearly visible diamond shapes
+    const size = 24 + Math.random() * 54;
+    const isSymbol = Math.random() < 0.55;
     return {
       x: Math.random() * W,
       y: -size - Math.random() * H * 0.5,
       size: size,
       speed: 0.15 + Math.random() * 0.45,
-      opacity: 0.08 + Math.random() * 0.35,
+      opacity: 0.08 + Math.random() * 0.3,
       rotation: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.008,
+      rotSpeed: (Math.random() - 0.5) * 0.006,
       color: color,
       glow: isGold ? 'rgba(212,175,55,' : 'rgba(185,242,255,',
       isSymbol: isSymbol,
@@ -593,13 +597,37 @@ function copyContract() {
     };
   }
 
+  // Large foreground diamonds — parallax depth effect
+  function createForegroundDiamond() {
+    const isGold = Math.random() < 0.4;
+    const color = isGold ? GOLD : ICE;
+    return {
+      x: Math.random() * W,
+      y: -150 - Math.random() * H * 0.3,
+      size: 80 + Math.random() * 120,
+      speed: 0.08 + Math.random() * 0.15, // slow-moving
+      opacity: 0.04 + Math.random() * 0.1,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.002,
+      color: color,
+      glow: isGold ? 'rgba(212,175,55,' : 'rgba(185,242,255,',
+      drift: (Math.random() - 0.5) * 0.15
+    };
+  }
+
   function init() {
     resize();
     particles = [];
+    foregroundDiamonds = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const p = createParticle();
-      p.y = Math.random() * H; // spread initially
+      p.y = Math.random() * H;
       particles.push(p);
+    }
+    for (let i = 0; i < FOREGROUND_COUNT; i++) {
+      const d = createForegroundDiamond();
+      d.y = Math.random() * H;
+      foregroundDiamonds.push(d);
     }
   }
 
@@ -608,10 +636,11 @@ function copyContract() {
     ctx.translate(x, y);
     ctx.rotate(rotation);
     ctx.globalAlpha = opacity;
-    ctx.shadowColor = glowBase + '0.6)';
-    ctx.shadowBlur = size * 0.8;
+    // Enhanced GLOW — double shadow for bloom
+    ctx.shadowColor = glowBase + '0.8)';
+    ctx.shadowBlur = size * 1.5;
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
     const half = size / 2;
     ctx.moveTo(0, -half);
@@ -621,28 +650,68 @@ function copyContract() {
     ctx.closePath();
     ctx.stroke();
     // inner glow fill
-    ctx.fillStyle = glowBase + (opacity * 0.15) + ')';
+    ctx.fillStyle = glowBase + (opacity * 0.2) + ')';
     ctx.fill();
+    // second glow pass for bloom
+    ctx.shadowBlur = size * 2.5;
+    ctx.shadowColor = glowBase + '0.4)';
+    ctx.stroke();
     ctx.restore();
   }
 
   function drawSymbol(p) {
     ctx.save();
     ctx.translate(p.x, p.y);
-    ctx.rotate(p.rotation);
-    ctx.globalAlpha = p.opacity;
-    ctx.shadowColor = p.glow + '0.5)';
-    ctx.shadowBlur = p.size * 0.6;
+    // Symbols: minimal rotation so they stay READABLE
+    ctx.rotate(p.rotation * 0.15);
+    ctx.globalAlpha = p.opacity * 1.4; // boost opacity for readability
+    // Strong GLOW behind symbols
+    ctx.shadowColor = p.glow + '0.9)';
+    ctx.shadowBlur = p.size * 1.2;
     ctx.fillStyle = p.color;
-    ctx.font = p.size + 'px Cinzel, serif';
+    // Larger font — readable as ancient text raining down
+    ctx.font = '600 ' + (p.size * 1.3) + 'px Cinzel, serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
+    ctx.fillText(p.symbol, 0, 0);
+    // second glow pass
+    ctx.shadowBlur = p.size * 2;
+    ctx.shadowColor = p.glow + '0.4)';
     ctx.fillText(p.symbol, 0, 0);
     ctx.restore();
   }
 
+  // Gold scan lines — digital temple effect
+  function drawScanLines() {
+    // Subtle horizontal gold lines across entire canvas
+    ctx.save();
+    for (let y = 0; y < H; y += 4) {
+      ctx.globalAlpha = 0.015 + Math.sin(y * 0.01 + scanY * 0.02) * 0.008;
+      ctx.fillStyle = GOLD;
+      ctx.fillRect(0, y, W, 1);
+    }
+    // Moving bright scan line
+    const scanPos = (scanY % (H + 60)) - 30;
+    const grad = ctx.createLinearGradient(0, scanPos - 30, 0, scanPos + 30);
+    grad.addColorStop(0, 'rgba(212,175,55,0)');
+    grad.addColorStop(0.4, 'rgba(212,175,55,0.04)');
+    grad.addColorStop(0.5, 'rgba(212,175,55,0.08)');
+    grad.addColorStop(0.6, 'rgba(212,175,55,0.04)');
+    grad.addColorStop(1, 'rgba(212,175,55,0)');
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, scanPos - 30, W, 60);
+    ctx.restore();
+    scanY += 0.5;
+  }
+
   function animate() {
     ctx.clearRect(0, 0, W, H);
+
+    // Draw scan lines first (background layer)
+    drawScanLines();
+
+    // Background particles (smaller, further away)
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
       p.y += p.speed;
@@ -655,12 +724,24 @@ function copyContract() {
         drawDiamond(p.x, p.y, p.size, p.rotation, p.color, p.opacity, p.glow);
       }
 
-      // recycle when off bottom
       if (p.y > H + p.size * 2) {
-        const np = createParticle();
-        particles[i] = np;
+        particles[i] = createParticle();
       }
     }
+
+    // Foreground large diamonds — parallax depth, drawn on top
+    for (let i = 0; i < foregroundDiamonds.length; i++) {
+      const d = foregroundDiamonds[i];
+      d.y += d.speed;
+      d.x += d.drift;
+      d.rotation += d.rotSpeed;
+      drawDiamond(d.x, d.y, d.size, d.rotation, d.color, d.opacity, d.glow);
+
+      if (d.y > H + d.size * 2) {
+        foregroundDiamonds[i] = createForegroundDiamond();
+      }
+    }
+
     requestAnimationFrame(animate);
   }
 
