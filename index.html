@@ -23,6 +23,16 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;fo
 ::-webkit-scrollbar-track{background:var(--black)}
 ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
 
+/* ── Vault Door ── */
+.vault{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.vault-l,.vault-r{position:absolute;top:0;width:50%;height:100%;background:linear-gradient(135deg,#0A0A0A,#111);border:1px solid var(--gold-dim);transition:transform 1.5s cubic-bezier(.77,0,.175,1);z-index:2}
+.vault-l{left:0;border-right:2px solid var(--gold)}
+.vault-r{right:0;border-left:2px solid var(--gold)}
+.vault.open .vault-l{transform:translateX(-105%)}
+.vault.open .vault-r{transform:translateX(105%)}
+.vault-omega{z-index:3;font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,4rem);color:var(--gold);opacity:1;transition:opacity .5s .3s}
+.vault.open .vault-omega{opacity:0}
+
 /* ── Particles ── */
 .particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .dot{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:0;animation:drift linear infinite}
@@ -182,12 +192,19 @@ footer{border-top:1px solid var(--border);padding:50px 20px 24px;position:relati
 
 /* Reduce motion */
 @media(prefers-reduced-motion:reduce){
-  .dot,.omega,.rv{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
-  .particles{display:none}
+  .dot,.omega,.rv,.vault-l,.vault-r,.vault-omega{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
+  .particles,.vault{display:none}
 }
 </style>
 </head>
 <body>
+
+<!-- Vault Door -->
+<div class="vault" id="vault">
+  <div class="vault-l"></div>
+  <div class="vault-r"></div>
+  <div class="vault-omega">Ω</div>
+</div>
 
 <!-- Particles -->
 <div class="particles" id="particles"></div>
@@ -377,6 +394,12 @@ footer{border-top:1px solid var(--border);padding:50px 20px 24px;position:relati
 <div class="toast" id="toast">Contract address copied</div>
 
 <script>
+// ── Vault opening ──
+window.addEventListener('load',function(){
+  setTimeout(function(){document.getElementById('vault').classList.add('open')},400);
+  setTimeout(function(){document.getElementById('vault').style.display='none'},1800);
+});
+
 // ── 20 particles, 2px, 10% opacity ──
 (function(){
   var f=document.getElementById('particles'),w=window.innerWidth,n=20;
