@@ -177,7 +177,7 @@ Burned tokens are removed from supply permanently.
 | **Basescan (Token)** | [View](https://basescan.org/token/0x377C542E5A50908d94500f266fa7e4F5d033fBa7) |
 | **Basescan (Pool)** | [View](https://basescan.org/address/0x6C3ed6b9d16ad3995DBdd7986C73F02448FF20c3) |
 | **DexTools** | [Chart](https://www.dextools.io/app/en/base/pair-explorer/0x6C3ed6b9d16ad3995DBdd7986C73F02448FF20c3) |
-| **DexScreener** | [Chart](https://dexscreener.com/base/0x6C3ed6b9d16ad3995DBdd7986C73F02448FF20c3) |
+| **GeckoTerminal** | [Chart](https://www.geckoterminal.com/base/pools/0x6C3ed6b9d16ad3995DBdd7986C73F02448FF20c3) |
 | **Aerodrome** | [Buy](https://aerodrome.finance/swap?from=eth&to=0x377C542E5A50908d94500f266fa7e4F5d033fBa7) |
 | **GitHub** | [Source](https://github.com/kyle4814/Titan-token) |
 
