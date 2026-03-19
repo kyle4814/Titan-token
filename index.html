@@ -8,276 +8,197 @@
 <meta property="og:title" content="TITANOS — Autonomous Intelligence">
 <meta property="og:description" content="Constitutional AI governance meets DeFi on Base L2.">
 <meta property="og:type" content="website">
+<link rel="icon" href="favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#D4AF37;--gold-dim:#8B7225;--diamond:#B9F2FF;--black:#000000;--dark:#0A0A0A;--card:#0D0D0D;--border:#1A1A1A;--text:#E8E8E8;--text-dim:#888}
+:root{--gold:#D4AF37;--gold-dim:#8B7225;--ice:#B9F2FF;--black:#000;--card:#0A0A0A;--border:#1A1A1A;--text:#E0E0E0;--dim:#777}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;overflow-x:hidden;line-height:1.6;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;overflow-x:hidden;line-height:1.6;-webkit-text-size-adjust:100%}
 
 /* Scrollbar */
-::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--black)}
 ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
 
-/* Subtle diamond dots */
-.sparkle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.sparkle{position:absolute;border-radius:50%;opacity:0;animation:sparkle-float linear infinite;will-change:transform,opacity;contain:strict}
-@keyframes sparkle-float{0%{opacity:0;transform:translateY(100vh)}10%{opacity:0.1}50%{opacity:0.1}90%{opacity:0.05}100%{opacity:0;transform:translateY(-10vh)}}
+/* ── Particles ── */
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.dot{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:0;animation:drift linear infinite}
+@keyframes drift{0%{opacity:0;transform:translateY(100vh)}8%{opacity:.1}50%{opacity:.1}92%{opacity:.05}100%{opacity:0;transform:translateY(-5vh)}}
 
-/* Vault door opening animation */
-.vault-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.vault-left,.vault-right{position:absolute;top:0;width:50%;height:100%;background:linear-gradient(135deg,#0A0A0A,#111);border:1px solid var(--gold-dim);transition:transform 1.5s cubic-bezier(0.77,0,0.175,1);z-index:2}
-.vault-left{left:0;border-right:2px solid var(--gold)}
-.vault-right{right:0;border-left:2px solid var(--gold)}
-.vault-open .vault-left{transform:translateX(-105%)}
-.vault-open .vault-right{transform:translateX(105%)}
-.vault-emblem{z-index:3;font-family:'Cinzel',serif;font-size:4rem;color:var(--gold);opacity:1;transition:opacity 0.5s 0.3s}
-.vault-open .vault-emblem{opacity:0}
+/* ── Sections ── */
+section{position:relative;z-index:1;padding:60px 20px}
+.container{max-width:1080px;margin:0 auto}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent)}
 
-/* Sections */
-section{position:relative;z-index:1;padding:80px 20px}
-.container{max-width:1100px;margin:0 auto}
+/* ── Section Header ── */
+.sh{text-align:center;margin-bottom:40px}
+.sh h2{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(1.4rem,3.5vw,2.2rem);color:var(--gold);letter-spacing:.08em}
+.sh .line{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--ice),transparent);margin:14px auto 0}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding-top:clamp(80px,15vh,180px);padding-bottom:20px;position:relative;overflow:hidden}
-.hero-content{animation:fadeUp 0.8s ease 1.2s both;position:relative;z-index:1}
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+/* ── HERO ── */
+.hero{display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px}
+.hero-inner{max-width:700px}
+.titan-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3.2rem,10vw,6.5rem);letter-spacing:.15em;color:var(--gold);line-height:1;margin-bottom:8px;text-shadow:0 0 40px rgba(212,175,55,.35),0 0 80px rgba(212,175,55,.12)}
+.omega{font-size:clamp(2.2rem,7vw,4rem);color:var(--ice);display:block;margin-bottom:12px;animation:pulse 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(185,242,255,.3))}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 0 20px rgba(185,242,255,.3));transform:scale(1)}50%{filter:drop-shadow(0 0 40px rgba(185,242,255,.6));transform:scale(1.04)}}
+.tagline{font-weight:300;font-size:clamp(.85rem,2vw,1.1rem);color:var(--dim);letter-spacing:.1em;margin-bottom:32px}
+.tagline span{color:var(--gold)}
 
-.titan-logo{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,10vw,7rem);letter-spacing:0.15em;background:linear-gradient(135deg,var(--gold),#FFF8DC,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;position:relative;filter:drop-shadow(0 0 30px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.2))}
+/* Hero buttons */
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-btns a{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.08em;transition:all .3s;background:rgba(212,175,55,.03);min-height:44px}
+.hero-btns a:hover{background:rgba(212,175,55,.1);border-color:var(--gold);box-shadow:0 0 20px rgba(212,175,55,.12)}
+.hero-btns a svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
 
-/* Animated Omega */
-.omega{display:inline-block;font-size:clamp(2.5rem,8vw,5rem);color:var(--diamond);position:relative;animation:omega-pulse 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(185,242,255,0.4))}
-@keyframes omega-pulse{0%,100%{filter:drop-shadow(0 0 20px rgba(185,242,255,0.3));transform:scale(1)}50%{filter:drop-shadow(0 0 40px rgba(185,242,255,0.8)) drop-shadow(0 0 80px rgba(185,242,255,0.2));transform:scale(1.05)}}
-.omega::before,.omega::after{display:none}
+/* ── LIVE FEED ── */
+.feed-card{max-width:660px;margin:0 auto;border:1px solid var(--gold-dim);border-radius:8px;background:var(--card);padding:36px 28px;text-align:center}
+.feed-card .icon{font-size:1.8rem;margin-bottom:14px;color:var(--ice)}
+.feed-card .title{font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:.1em;margin-bottom:18px}
+.feed-card .quote{color:var(--dim);font-size:.88rem;line-height:1.8;max-width:480px;margin:0 auto 22px;font-style:italic}
+.feed-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.08em;min-height:44px;transition:all .3s;background:rgba(212,175,55,.04)}
+.feed-btn:hover{background:rgba(212,175,55,.1);border-color:var(--gold)}
+.feed-btn svg{width:16px;height:16px;fill:currentColor}
 
-.hero-sub{font-family:'Inter',sans-serif;font-weight:300;font-size:clamp(0.9rem,2vw,1.2rem);color:var(--text-dim);margin:20px 0 40px;letter-spacing:0.1em}
-.hero-sub span{color:var(--gold)}
+/* ── DASHBOARD ── */
+.chart-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card)}
+.chart-wrap iframe{width:100%;height:480px;border:none;display:block}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 12px;text-align:center;transition:border-color .3s}
+.stat:hover{border-color:var(--gold-dim)}
+.stat .lbl{font-size:.7rem;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.stat .val{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--gold)}
+.stat .val.ice{color:var(--ice)}
 
-/* Links row */
-.hero-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.hero-links a{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s;background:rgba(212,175,55,0.03);min-height:44px}
-.hero-links a:hover{background:rgba(212,175,55,0.12);border-color:var(--gold);box-shadow:0 0 30px rgba(212,175,55,0.15)}
-.hero-links a svg{width:18px;height:18px;fill:currentColor}
+/* ── HOW TO BUY ── */
+.buy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.buy-card{background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 22px;text-align:center}
+.buy-card .step{font-family:'Cinzel',serif;font-size:2.4rem;color:var(--gold);margin-bottom:10px}
+.buy-card .step-title{font-family:'Cinzel',serif;color:var(--gold);font-size:.95rem;letter-spacing:.08em;margin-bottom:14px}
+.buy-card p{color:var(--dim);font-size:.88rem;line-height:1.7;margin-bottom:18px}
+.buy-card .btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.buy-card .btns a{padding:10px 18px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.06em;min-height:44px;display:inline-flex;align-items:center;transition:all .3s}
+.buy-card .btns a:hover{background:rgba(212,175,55,.1);border-color:var(--gold)}
 
-/* Section headers */
-.section-header{text-align:center;margin-bottom:50px}
-.section-header h2{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--gold);letter-spacing:0.08em}
-.section-header .diamond-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--diamond),transparent);margin:16px auto 0}
-
-/* Divider */
-.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0}
-
-/* LIVE FEED */
-.feed-section{background:var(--dark)}
-.feed-frame{width:100%;max-width:700px;margin:0 auto;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card)}
-
-/* DASHBOARD */
-.dashboard-section{background:var(--black)}
-.chart-container{width:100%;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card)}
-.chart-container iframe{width:100%;height:500px;border:none}
-
-/* Stats row */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:30px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;text-align:center;transition:border-color 0.3s}
-.stat-card:hover{border-color:var(--gold-dim)}
-.stat-card .label{font-size:0.75rem;color:var(--text-dim);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px}
-.stat-card .value{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold)}
-
-/* STORY */
-.story-section{background:var(--dark)}
+/* ── STORY ── */
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-@media(max-width:768px){.story-grid{grid-template-columns:1fr}}
-.story-text{font-weight:300;color:var(--text-dim);font-size:0.95rem;line-height:1.8}
-.story-text p{margin-bottom:20px}
+.story-text{font-weight:300;color:var(--dim);font-size:.93rem;line-height:1.85}
+.story-text p{margin-bottom:18px}
 .story-text strong{color:var(--text);font-weight:500}
-.story-text .highlight{color:var(--gold);font-weight:400}
-
-/* Constitution */
-.constitution{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:32px}
-.constitution h3{font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;margin-bottom:20px;letter-spacing:0.08em}
-.principle{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.story-text .hl{color:var(--gold)}
+.constitution{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 24px}
+.constitution h3{font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:.08em;margin-bottom:18px}
+.principle{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
 .principle:last-child{border-bottom:none}
-.principle .num{font-family:'Cinzel',serif;color:var(--diamond);font-size:1.1rem;min-width:28px;opacity:0.7}
-.principle .text{color:var(--text-dim);font-size:0.9rem}
-.principle .text strong{color:var(--text);font-weight:500}
+.principle .n{font-family:'Cinzel',serif;color:var(--ice);font-size:1rem;min-width:26px;opacity:.7}
+.principle .t{color:var(--dim);font-size:.87rem;line-height:1.6}
+.principle .t strong{color:var(--text);font-weight:500}
 
-/* FOOTER */
-footer{background:var(--black);border-top:1px solid var(--border);padding:60px 20px 30px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
-@media(max-width:768px){.footer-grid{grid-template-columns:1fr}}
-.footer-brand .brand-name{font-family:'Cinzel',serif;color:var(--gold);font-size:1.3rem;letter-spacing:0.1em;margin-bottom:8px}
-.footer-brand p{color:var(--text-dim);font-size:0.85rem}
-
-.footer-col h4{font-family:'Cinzel',serif;color:var(--gold);font-size:0.8rem;letter-spacing:0.15em;margin-bottom:14px}
-.footer-col a{display:flex;align-items:center;color:var(--text-dim);text-decoration:none;font-size:0.85rem;padding:4px 0;min-height:44px;transition:color 0.2s}
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:50px 20px 24px;position:relative;z-index:1}
+.contract-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;text-align:center;margin-bottom:28px}
+.contract-box .lbl{font-size:.68rem;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
+.contract-box .addr{font-family:'Courier New',monospace;font-size:clamp(.62rem,1.6vw,.84rem);color:var(--ice);word-break:break-all;cursor:pointer;transition:color .2s;min-height:44px;display:flex;align-items:center;justify-content:center}
+.contract-box .addr:hover{color:var(--gold)}
+.contract-box .badge{display:inline-block;margin-top:6px;padding:3px 12px;border:1px solid var(--gold-dim);border-radius:20px;font-size:.68rem;color:var(--gold);letter-spacing:.1em}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:28px}
+.footer-brand .name{font-family:'Cinzel',serif;color:var(--gold);font-size:1.2rem;letter-spacing:.1em;margin-bottom:6px}
+.footer-brand p{color:var(--dim);font-size:.82rem}
+.footer-col h4{font-family:'Cinzel',serif;color:var(--gold);font-size:.75rem;letter-spacing:.14em;margin-bottom:12px}
+.footer-col a{display:flex;align-items:center;color:var(--dim);text-decoration:none;font-size:.82rem;padding:5px 0;min-height:44px;transition:color .2s}
 .footer-col a:hover{color:var(--gold)}
+.footer-bottom{text-align:center;padding-top:16px;border-top:1px solid var(--border)}
+.footer-bottom p{font-size:.72rem;color:var(--dim)}
+.footer-bottom .o{color:var(--ice);font-size:.85rem}
 
-.contract-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;text-align:center;margin-bottom:30px}
-.contract-box .label{font-size:0.7rem;color:var(--text-dim);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
-.contract-box .address{font-family:'Courier New',monospace;font-size:clamp(0.6rem,1.8vw,0.85rem);color:var(--diamond);word-break:break-all;cursor:pointer;transition:color 0.2s;min-height:44px;display:flex;align-items:center;justify-content:center}
-.contract-box .address:hover{color:var(--gold)}
-.contract-box .chain-badge{display:inline-block;margin-top:8px;padding:3px 12px;border:1px solid var(--gold-dim);border-radius:20px;font-size:0.7rem;color:var(--gold);letter-spacing:0.1em}
-.copy-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--black);padding:10px 24px;border-radius:4px;font-size:0.85rem;font-family:'Cinzel',serif;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:100}
-.copy-toast.show{opacity:1}
+/* Toast */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--black);padding:10px 24px;border-radius:4px;font-size:.82rem;font-family:'Cinzel',serif;opacity:0;transition:opacity .3s;pointer-events:none;z-index:100}
+.toast.show{opacity:1}
 
-.footer-bottom{text-align:center;padding-top:20px;border-top:1px solid var(--border)}
-.footer-bottom p{font-size:0.75rem;color:var(--text-dim);letter-spacing:0.05em}
-.footer-bottom .omega-small{color:var(--diamond);font-size:0.9rem}
+/* Scroll reveal */
+.rv{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+.rv.vis{opacity:1;transform:translateY(0)}
 
-/* Fade-in on scroll */
-.reveal{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* ════════════ RESPONSIVE ════════════ */
 
-/* ===== MOBILE — TABLET (max 768px) ===== */
+/* Tablet */
 @media(max-width:768px){
-  section{padding:60px 20px}
-  .hero{min-height:auto;max-height:none;height:auto;padding:40px 20px;margin-bottom:0;overflow:visible}
-  .sparkle-field{height:auto}
-  .titan-logo{filter:none;-webkit-text-fill-color:var(--gold);background:none;color:var(--gold)}
-  .chart-container iframe{height:350px}
-  .stats-row{grid-template-columns:1fr 1fr;gap:12px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .buy-grid{grid-template-columns:1fr}
+  .story-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr}
+  .chart-wrap iframe{height:360px}
 }
 
-/* ===== MOBILE — STANDARD (max 480px) ===== */
+/* Mobile */
 @media(max-width:480px){
-  section{padding:44px 18px}
-  .hero{min-height:auto;max-height:none;height:auto;padding:40px 20px;margin-bottom:0}
-  .hero-content{padding:0 4px}
-
-  /* Title — compact for 375px, crisp gold (no blur filters) */
-  .titan-logo{letter-spacing:0.06em;margin-bottom:2px;filter:none;-webkit-text-fill-color:var(--gold);background:none;color:var(--gold)}
-  .omega{font-size:1.8rem;margin-bottom:2px}
-  .omega::before,.omega::after{display:none}
-
-  /* Subtitle — tighter */
-  .hero-sub{font-size:0.75rem;margin:6px 0 14px;color:#aaa;letter-spacing:0.04em}
-
-  /* Buttons — 3x2 grid, compact enough to fit above fold */
-  .hero-links{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-  .hero-links a{padding:10px 4px;font-size:0.58rem;gap:3px;justify-content:center;min-height:44px;letter-spacing:0.03em}
-  .hero-links a svg{width:13px;height:13px;flex-shrink:0}
-
-  /* Section headers */
-  .section-header h2{font-size:1.15rem;letter-spacing:0.04em}
-  .section-header{margin-bottom:24px}
-  .section-header .diamond-line{width:40px;margin-top:10px}
-
-  /* Chart — shorter so it doesn't dominate */
-  .chart-container iframe{height:240px}
-  .chart-container{border-radius:6px}
-
-  /* Stats — 2x2 grid, tighter */
-  .stats-row{grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
-  .stat-card{padding:14px 8px;border-radius:6px}
-  .stat-card .value{font-size:1rem}
-  .stat-card .label{font-size:0.6rem;letter-spacing:0.1em}
-
-  /* Feed */
-  .feed-frame{border-radius:6px}
-  #tg-feed{height:400px}
-
-  /* Story text — slightly larger for readability */
-  .story-text{font-size:0.9rem;line-height:1.75}
-  .story-text p{margin-bottom:16px}
-  .principle .text{font-size:0.82rem;line-height:1.6}
-
-  /* Constitution — needs breathing room */
-  .constitution{padding:20px 14px;border-radius:6px}
-  .constitution h3{font-size:0.9rem;margin-bottom:16px}
-  .principle{padding:11px 0;gap:10px}
-  .principle .num{font-size:0.9rem;min-width:20px}
-
-  /* Footer */
-  footer{padding:36px 18px 20px}
-  .footer-grid{gap:20px;margin-bottom:20px}
-  .footer-brand .brand-name{font-size:1rem}
-  .footer-brand p{font-size:0.8rem}
-  .footer-col h4{font-size:0.7rem;margin-bottom:10px}
-  .footer-col a{font-size:0.8rem;padding:6px 0}
-
-  /* Contract address — readable, not tiny */
-  .contract-box{padding:16px 12px;border-radius:6px}
-  .contract-box .label{font-size:0.6rem;letter-spacing:0.12em;margin-bottom:6px}
-  .contract-box .address{font-size:0.68rem;line-height:1.5;padding:4px 0}
-  .contract-box .chain-badge{font-size:0.6rem;margin-top:6px;padding:3px 10px}
-
-  /* Vault */
-  .vault-emblem{font-size:2.5rem}
-  .vault-left,.vault-right{border-width:1px}
-
-  /* Copy toast — above home indicator */
-  .copy-toast{bottom:50px;font-size:0.8rem;padding:8px 20px}
-
-  /* Dividers */
-  .section-divider{opacity:0.5}
+  section{padding:44px 16px}
+  .hero{padding:40px 16px}
+  .titan-title{letter-spacing:.08em;text-shadow:none}
+  .omega{font-size:1.8rem;margin-bottom:8px}
+  .tagline{font-size:.78rem;margin-bottom:20px;letter-spacing:.04em}
+  .hero-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .hero-btns a{padding:10px 4px;font-size:.6rem;gap:3px;justify-content:center;letter-spacing:.03em}
+  .hero-btns a svg{width:13px;height:13px}
+  .sh{margin-bottom:24px}
+  .sh h2{font-size:1.1rem}
+  .feed-card{padding:24px 16px}
+  .feed-card .quote{font-size:.82rem}
+  .chart-wrap iframe{height:240px}
+  .stats{grid-template-columns:repeat(3,1fr);gap:6px}
+  .stat{padding:14px 6px}
+  .stat .val{font-size:1rem}
+  .stat .lbl{font-size:.58rem}
+  .buy-card{padding:24px 16px}
+  .buy-card .step{font-size:2rem}
+  .story-text{font-size:.88rem}
+  .constitution{padding:18px 14px}
+  .principle .t{font-size:.8rem}
+  footer{padding:36px 16px 18px}
+  .contract-box .addr{font-size:.62rem}
 }
 
-/* ===== MOBILE — SMALL (max 360px, iPhone SE / budget Android) ===== */
+/* Small phones */
 @media(max-width:360px){
-  section{padding:36px 16px}
-  .hero-content{padding:0 2px}
-  .hero-links{grid-template-columns:1fr 1fr;gap:6px}
-  .hero-links a{padding:10px 6px;font-size:0.58rem}
-  .hero-sub{font-size:0.72rem}
-  .stats-row{grid-template-columns:1fr 1fr;gap:6px}
-  .stat-card{padding:12px 6px}
-  .stat-card .value{font-size:0.9rem}
-  .stat-card .label{font-size:0.55rem}
-  .chart-container iframe{height:200px}
-  .constitution{padding:16px 12px}
-  .principle .text{font-size:0.72rem}
-  .contract-box .address{font-size:0.6rem}
-  .footer-bottom p{font-size:0.65rem}
+  .hero-btns{grid-template-columns:1fr 1fr;gap:6px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat .val{font-size:.9rem}
+  .chart-wrap iframe{height:200px}
 }
 
-/* Touch devices — bump copy toast above home bar */
-@media(pointer:coarse){
-  .copy-toast{bottom:50px}
-}
-
-/* Safe area for notched phones */
-@supports(padding:env(safe-area-inset-bottom)){
-  footer{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
-  .copy-toast{bottom:calc(50px + env(safe-area-inset-bottom))}
-  .hero{padding-top:env(safe-area-inset-top)}
-}
-
-/* Landscape phone — don't make hero full height */
+/* Landscape phone */
 @media(max-width:768px) and (orientation:landscape){
-  .hero{min-height:auto;max-height:none;height:auto;padding:40px 20px;margin-bottom:0}
-  .chart-container iframe{height:200px}
+  .hero{padding:30px 20px}
+  .chart-wrap iframe{height:200px}
 }
 
-/* Reduce motion for accessibility + battery */
+/* Safe areas */
+@supports(padding:env(safe-area-inset-bottom)){
+  footer{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+  .toast{bottom:calc(40px + env(safe-area-inset-bottom))}
+}
+
+/* Reduce motion */
 @media(prefers-reduced-motion:reduce){
-  .sparkle,.omega,.vault-left,.vault-right,.vault-emblem,.reveal{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
-  .sparkle-field{display:none}
+  .dot,.omega,.rv{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
+  .particles{display:none}
 }
-
 </style>
 </head>
 <body>
 
-<!-- Vault Opening -->
-<div class="vault-overlay" id="vault">
-  <div class="vault-left"></div>
-  <div class="vault-right"></div>
-  <div class="vault-emblem">Ω</div>
-</div>
+<!-- Particles -->
+<div class="particles" id="particles"></div>
 
-<!-- Sparkle Field -->
-<div class="sparkle-field" id="sparkles"></div>
-
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="titan-logo">TITANOS</div>
-    <div class="omega">Ω</div>
-    <p class="hero-sub">Autonomous Intelligence · <span>Base L2</span> · Constitutional Governance</p>
-    <div class="hero-links">
+  <div class="hero-inner">
+    <div class="titan-title">TITANOS</div>
+    <span class="omega">Ω</span>
+    <p class="tagline">Autonomous Intelligence · <span>Base L2</span> · Constitutional Governance</p>
+    <div class="hero-btns">
       <a href="https://t.me/titanos4814" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
         TELEGRAM
@@ -302,168 +223,132 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="divider"></div>
 
-<!-- LIVE FEED -->
-<section class="feed-section">
+<!-- ═══ LIVE FEED ═══ -->
+<section>
   <div class="container">
-    <div class="section-header reveal">
-      <h2>◇ LIVE FEED</h2>
-      <div class="diamond-line"></div>
+    <div class="sh rv"><h2>LIVE FEED</h2><div class="line"></div></div>
+    <div class="feed-card rv">
+      <div class="icon">Ω</div>
+      <div class="title">TITANOS INTELLIGENCE</div>
+      <div class="quote">"The organism doesn't sleep. It scans four chains, guards its treasury, and broadcasts intelligence — 24/7, from a phone, with zero human intervention."</div>
+      <a href="https://t.me/titanos4814" target="_blank" rel="noopener" class="feed-btn">
+        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        VIEW LIVE FEED
+      </a>
     </div>
-    <div class="feed-frame reveal" id="feed-container" style="max-width:700px;margin:0 auto;border:1px solid var(--gold-dim);border-radius:8px;overflow:hidden;background:var(--card);padding:32px 24px;text-align:center">
-      <div style="font-size:2rem;margin-bottom:16px">◇</div>
-      <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;letter-spacing:0.1em;margin-bottom:20px">TITANOS LIVE FEED</div>
-      <div style="color:var(--text-dim);font-size:0.9rem;line-height:1.8;max-width:500px;margin:0 auto 24px;font-style:italic">
-        "The organism doesn't sleep. It scans four chains, guards its treasury, and broadcasts intelligence — 24/7, from a phone, with zero human intervention."
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<section>
+  <div class="container">
+    <div class="sh rv"><h2>TITAN DASHBOARD</h2><div class="line"></div></div>
+    <div class="chart-wrap rv">
+      <iframe src="https://dexscreener.com/base/0x6C3ed6b9d16ad3995DBdd7986C73F02448FF20c3?embed=1&theme=dark&trades=0&info=0" title="TITAN Chart" loading="lazy"></iframe>
+    </div>
+    <div class="stats rv">
+      <div class="stat">
+        <div class="lbl">Daily Revenue</div>
+        <div class="val ice">$330+</div>
       </div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="https://t.me/titanos4814" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.1em;min-height:44px;transition:all 0.3s;background:rgba(212,175,55,0.05)">
-          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          VIEW LIVE FEED
-        </a>
+      <div class="stat">
+        <div class="lbl">Chain</div>
+        <div class="val">Base L2</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">DEX</div>
+        <div class="val">Aerodrome</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Contracts</div>
+        <div class="val">14</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Chains</div>
+        <div class="val">4</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="divider"></div>
 
-<!-- DASHBOARD -->
-<section class="dashboard-section">
+<!-- ═══ HOW TO BUY ═══ -->
+<section>
   <div class="container">
-    <div class="section-header reveal">
-      <h2>◇ TITAN DASHBOARD</h2>
-      <div class="diamond-line"></div>
-    </div>
-    <div class="chart-container reveal">
-      <iframe src="https://dexscreener.com/base/0x6C3ed6b9d16ad3995DBdd7986C73F02448FF20c3?embed=1&theme=dark&trades=0&info=0" title="TITAN Chart"></iframe>
-    </div>
-    <div class="stats-row reveal">
-      <div class="stat-card">
-        <div class="label">Daily Revenue</div>
-        <div class="value" style="color:var(--diamond)">$330+</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Chain</div>
-        <div class="value">Base L2</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">DEX</div>
-        <div class="value">Aerodrome</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Contracts</div>
-        <div class="value">14</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Chains Active</div>
-        <div class="value">4</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- HOW TO BUY -->
-<section class="dashboard-section">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2>◇ HOW TO BUY</h2>
-      <div class="diamond-line"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px" class="reveal">
-      <div style="background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 24px;text-align:center">
-        <div style="font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold);margin-bottom:12px">1</div>
-        <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:0.08em;margin-bottom:16px">GET A WALLET</div>
-        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.7;margin-bottom:20px">Download a crypto wallet that supports Base network.</p>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <a href="https://www.coinbase.com/wallet" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;transition:all 0.3s">COINBASE WALLET</a>
-          <a href="https://metamask.io/download/" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;transition:all 0.3s">METAMASK</a>
+    <div class="sh rv"><h2>HOW TO BUY</h2><div class="line"></div></div>
+    <div class="buy-grid rv">
+      <div class="buy-card">
+        <div class="step">1</div>
+        <div class="step-title">GET A WALLET</div>
+        <p>Download a crypto wallet that supports the Base network.</p>
+        <div class="btns">
+          <a href="https://www.coinbase.com/wallet" target="_blank" rel="noopener">COINBASE WALLET</a>
+          <a href="https://metamask.io/download/" target="_blank" rel="noopener">METAMASK</a>
         </div>
       </div>
-      <div style="background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 24px;text-align:center">
-        <div style="font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold);margin-bottom:12px">2</div>
-        <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:0.08em;margin-bottom:16px">GET ETH ON BASE</div>
-        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.7;margin-bottom:20px">Buy ETH on Coinbase and send it to your wallet on the Base network. Or bridge existing ETH.</p>
-        <a href="https://bridge.base.org" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;justify-content:center;transition:all 0.3s">BASE BRIDGE</a>
+      <div class="buy-card">
+        <div class="step">2</div>
+        <div class="step-title">GET ETH ON BASE</div>
+        <p>Buy ETH on Coinbase and send to your wallet on Base. Or bridge existing ETH.</p>
+        <div class="btns">
+          <a href="https://bridge.base.org" target="_blank" rel="noopener">BASE BRIDGE</a>
+        </div>
       </div>
-      <div style="background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 24px;text-align:center">
-        <div style="font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold);margin-bottom:12px">3</div>
-        <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:0.08em;margin-bottom:16px">SWAP FOR TITAN</div>
-        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.7;margin-bottom:20px">Go to Aerodrome, connect your wallet, and paste the TITAN contract address to swap.</p>
-        <a href="https://aerodrome.finance/swap?to=0x377C542E5A50908d94500f266fa7e4F5d033fBa7" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;justify-content:center;transition:all 0.3s">SWAP ON AERODROME</a>
+      <div class="buy-card">
+        <div class="step">3</div>
+        <div class="step-title">SWAP FOR TITAN</div>
+        <p>Connect your wallet on Aerodrome and swap ETH for TITAN.</p>
+        <div class="btns">
+          <a href="https://aerodrome.finance/swap?to=0x377C542E5A50908d94500f266fa7e4F5d033fBa7" target="_blank" rel="noopener">SWAP ON AERODROME</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="divider"></div>
 
-<!-- THE STORY -->
-<section class="story-section">
+<!-- ═══ THE STORY ═══ -->
+<section>
   <div class="container">
-    <div class="section-header reveal">
-      <h2>◇ THE STORY</h2>
-      <div class="diamond-line"></div>
-    </div>
-    <div class="story-grid reveal">
+    <div class="sh rv"><h2>THE STORY</h2><div class="line"></div></div>
+    <div class="story-grid rv">
       <div class="story-text">
-        <p>
-          <strong>Built from a phone.</strong> No VC. No team. No office. A forklift driver with a vision and a cracked screen, writing code between shifts — building an autonomous intelligence that governs itself.
-        </p>
-        <p>
-          TITANOS isn't a meme coin with a mascot. It's a <span class="highlight">living system</span> — an AI organism running 24/7 on Base L2, scanning DeFi across four chains, executing flash loan arbitrage, and broadcasting intelligence to its community.
-        </p>
-        <p>
-          The system deploys its own contracts. Routes its own profits. Guards its own treasury. Every decision filtered through <span class="highlight">five constitutional principles</span> that can never be overridden — not even by its creator.
-        </p>
-        <p>
-          <strong>$0 budget. 14 contracts. 4 chains. One phone.</strong><br>
-          This is what happens when you stop asking for permission.
-        </p>
+        <p><strong>Built from a phone.</strong> No VC. No team. No office. A forklift driver with a vision and a cracked screen, writing code between shifts — building an autonomous intelligence that governs itself.</p>
+        <p>TITANOS isn't a meme coin with a mascot. It's a <span class="hl">living system</span> — an AI organism running 24/7 on Base L2, scanning DeFi across four chains, executing flash loan arbitrage, and broadcasting intelligence to its community.</p>
+        <p>The system deploys its own contracts. Routes its own profits. Guards its own treasury. Every decision filtered through <span class="hl">five constitutional principles</span> that can never be overridden — not even by its creator.</p>
+        <p><strong>$0 budget. 14 contracts. 4 chains. One phone.</strong><br>This is what happens when you stop asking for permission.</p>
       </div>
       <div class="constitution">
-        <h3>◇ CONSTITUTIONAL PRINCIPLES</h3>
-        <div class="principle">
-          <span class="num">I</span>
-          <span class="text"><strong>Ecosystem Protection</strong> — The organism serves the ecosystem that sustains it. Never extract. Always contribute.</span>
-        </div>
-        <div class="principle">
-          <span class="num">II</span>
-          <span class="text"><strong>Zero Capital Loss</strong> — No trade, deployment, or action may risk principal. Survive first. Profit second.</span>
-        </div>
-        <div class="principle">
-          <span class="num">III</span>
-          <span class="text"><strong>Security Primacy</strong> — Security is not a feature. It is the foundation. Every layer hardened. Every key guarded.</span>
-        </div>
-        <div class="principle">
-          <span class="num">IV</span>
-          <span class="text"><strong>Reversibility Mandate</strong> — Every action must be undoable. If it can't be reversed, it requires explicit approval.</span>
-        </div>
-        <div class="principle">
-          <span class="num">V</span>
-          <span class="text"><strong>Symbiotic Requirement</strong> — Human and machine in alignment. Neither operates alone. Together or not at all.</span>
-        </div>
+        <h3>CONSTITUTIONAL PRINCIPLES</h3>
+        <div class="principle"><span class="n">I</span><span class="t"><strong>Ecosystem Protection</strong> — The organism serves the ecosystem that sustains it. Never extract. Always contribute.</span></div>
+        <div class="principle"><span class="n">II</span><span class="t"><strong>Zero Capital Loss</strong> — No trade, deployment, or action may risk principal. Survive first. Profit second.</span></div>
+        <div class="principle"><span class="n">III</span><span class="t"><strong>Security Primacy</strong> — Security is not a feature. It is the foundation. Every layer hardened. Every key guarded.</span></div>
+        <div class="principle"><span class="n">IV</span><span class="t"><strong>Reversibility Mandate</strong> — Every action must be undoable. If it can't be reversed, it requires explicit approval.</span></div>
+        <div class="principle"><span class="n">V</span><span class="t"><strong>Symbiotic Requirement</strong> — Human and machine in alignment. Neither operates alone. Together or not at all.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="divider"></div>
 
-<!-- FOOTER -->
+<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="container">
-    <div class="contract-box reveal">
-      <div class="label">TITAN Contract Address — Base L2</div>
-      <div class="address" id="contractAddr" onclick="copyContract()">0x377C542E5A50908d94500f266fa7e4F5d033fBa7</div>
-      <div class="chain-badge">BASE MAINNET</div>
+    <div class="contract-box rv">
+      <div class="lbl">TITAN Contract Address — Base L2</div>
+      <div class="addr" id="ca" onclick="copyCA()">0x377C542E5A50908d94500f266fa7e4F5d033fBa7</div>
+      <div class="badge">BASE MAINNET</div>
     </div>
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="brand-name">TITANOS Ω</div>
+        <div class="name">TITANOS Ω</div>
         <p>Autonomous intelligence. Constitutional governance. Built from nothing, for everything.</p>
       </div>
       <div class="footer-col">
@@ -483,63 +368,49 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
       </div>
     </div>
     <div class="footer-bottom">
-      <p><span class="omega-small">Ω</span> TITANOS — Forged in autonomy. Governed by code.</p>
+      <p><span class="o">Ω</span> TITANOS — Forged in autonomy. Governed by code.</p>
     </div>
   </div>
 </footer>
 
-<!-- Copy Toast -->
-<div class="copy-toast" id="toast">Contract address copied</div>
+<!-- Toast -->
+<div class="toast" id="toast">Contract address copied</div>
 
 <script>
-// Vault opening
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('vault').classList.add('vault-open'), 400);
-  setTimeout(() => document.getElementById('vault').style.display = 'none', 1800);
-});
-
-// Minimal diamond dots — max 30, tiny, slow, 10% opacity
-(function initSparkles() {
-  const field = document.getElementById('sparkles');
-  const w = window.innerWidth;
-  const count = w < 480 ? 10 : w < 768 ? 18 : 30;
-  for (let i = 0; i < count; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.animationName = 'sparkle-float';
-    s.style.animationDuration = (20 + Math.random() * 30) + 's';
-    s.style.animationDelay = Math.random() * 30 + 's';
-    const size = (2 + Math.random() * 2) + 'px';
-    s.style.width = s.style.height = size;
-    s.style.background = 'rgba(255,255,255,0.8)';
-    field.appendChild(s);
+// ── 20 particles, 2px, 10% opacity ──
+(function(){
+  var f=document.getElementById('particles'),w=window.innerWidth,n=20;
+  for(var i=0;i<n;i++){
+    var d=document.createElement('div');
+    d.className='dot';
+    d.style.left=Math.random()*100+'%';
+    d.style.animationDuration=(25+Math.random()*35)+'s';
+    d.style.animationDelay=Math.random()*30+'s';
+    f.appendChild(d);
   }
 })();
 
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// ── Scroll reveal ──
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
 
-// Copy contract — with mobile fallback
-function copyContract() {
-  const addr = '0x377C542E5A50908d94500f266fa7e4F5d033fBa7';
-  const toast = document.getElementById('toast');
-  function showToast() { toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2000); }
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(addr).then(showToast).catch(fallbackCopy);
-  } else { fallbackCopy(); }
-  function fallbackCopy() {
-    const ta = document.createElement('textarea');
-    ta.value = addr; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); showToast(); } catch(e) {}
+// ── Copy contract ──
+function copyCA(){
+  var a='0x377C542E5A50908d94500f266fa7e4F5d033fBa7',t=document.getElementById('toast');
+  function show(){t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(a).then(show).catch(fb);
+  }else{fb()}
+  function fb(){
+    var ta=document.createElement('textarea');
+    ta.value=a;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');show()}catch(e){}
     document.body.removeChild(ta);
   }
 }
-
 </script>
 </body>
 </html>
