@@ -43,7 +43,7 @@ section{position:relative;z-index:1;padding:80px 20px}
 .container{max-width:1100px;margin:0 auto}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding-top:clamp(80px,15vh,180px)}
+.hero{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding-top:clamp(80px,15vh,180px);padding-bottom:20px}
 .hero-content{animation:fadeUp 0.8s ease 1.2s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
@@ -138,7 +138,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 /* ===== MOBILE — TABLET (max 768px) ===== */
 @media(max-width:768px){
   section{padding:60px 20px}
-  .hero{min-height:100vh;min-height:100dvh}
+  .hero{min-height:60vh;min-height:60dvh}
   .chart-container iframe{height:350px}
   .stats-row{grid-template-columns:1fr 1fr;gap:12px}
   .footer-grid{grid-template-columns:1fr}
@@ -313,11 +313,16 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
       <h2>◇ LIVE FEED</h2>
       <div class="diamond-line"></div>
     </div>
-    <div class="feed-frame reveal" id="feed-container">
-      <iframe id="tg-feed" src="https://t.me/s/titanos4814" style="width:100%;height:500px;border:none;background:var(--card)" title="TITANOS Live Feed"></iframe>
-      <div style="padding:14px 12px;text-align:center">
-        <a href="https://t.me/titanos4814" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:clamp(0.75rem,2vw,0.9rem);letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center">
-          OPEN IN TELEGRAM →
+    <div class="feed-frame reveal" id="feed-container" style="max-width:700px;margin:0 auto;border:1px solid var(--gold-dim);border-radius:8px;overflow:hidden;background:var(--card);padding:32px 24px;text-align:center">
+      <div style="font-size:2rem;margin-bottom:16px">◇</div>
+      <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;letter-spacing:0.1em;margin-bottom:20px">TITANOS LIVE FEED</div>
+      <div style="color:var(--text-dim);font-size:0.9rem;line-height:1.8;max-width:500px;margin:0 auto 24px;font-style:italic">
+        "The organism doesn't sleep. It scans four chains, guards its treasury, and broadcasts intelligence — 24/7, from a phone, with zero human intervention."
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="https://t.me/titanos4814" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.1em;min-height:44px;transition:all 0.3s;background:rgba(212,175,55,0.05)">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          VIEW LIVE FEED
         </a>
       </div>
     </div>
@@ -351,11 +356,46 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
       </div>
       <div class="stat-card">
         <div class="label">Contracts</div>
-        <div class="value">13</div>
+        <div class="value">14</div>
       </div>
       <div class="stat-card">
         <div class="label">Chains Active</div>
         <div class="value">4</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW TO BUY -->
+<section class="dashboard-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>◇ HOW TO BUY</h2>
+      <div class="diamond-line"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px" class="reveal">
+      <div style="background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 24px;text-align:center">
+        <div style="font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold);margin-bottom:12px">1</div>
+        <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:0.08em;margin-bottom:16px">GET A WALLET</div>
+        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.7;margin-bottom:20px">Download a crypto wallet that supports Base network.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a href="https://www.coinbase.com/wallet" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;transition:all 0.3s">COINBASE WALLET</a>
+          <a href="https://metamask.io/download/" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;transition:all 0.3s">METAMASK</a>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 24px;text-align:center">
+        <div style="font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold);margin-bottom:12px">2</div>
+        <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:0.08em;margin-bottom:16px">GET ETH ON BASE</div>
+        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.7;margin-bottom:20px">Buy ETH on Coinbase and send it to your wallet on the Base network. Or bridge existing ETH.</p>
+        <a href="https://bridge.base.org" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;justify-content:center;transition:all 0.3s">BASE BRIDGE</a>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--gold-dim);border-radius:8px;padding:32px 24px;text-align:center">
+        <div style="font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold);margin-bottom:12px">3</div>
+        <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:0.08em;margin-bottom:16px">SWAP FOR TITAN</div>
+        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.7;margin-bottom:20px">Go to Aerodrome, connect your wallet, and paste the TITAN contract address to swap.</p>
+        <a href="https://aerodrome.finance/swap?to=0x377C542E5A50908d94500f266fa7e4F5d033fBa7" target="_blank" rel="noopener" style="padding:10px 20px;border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold);text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.08em;min-height:44px;display:inline-flex;align-items:center;justify-content:center;transition:all 0.3s">SWAP ON AERODROME</a>
       </div>
     </div>
   </div>
@@ -382,7 +422,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
           The system deploys its own contracts. Routes its own profits. Guards its own treasury. Every decision filtered through <span class="highlight">five constitutional principles</span> that can never be overridden — not even by its creator.
         </p>
         <p>
-          <strong>$0 budget. 13 contracts. 4 chains. One phone.</strong><br>
+          <strong>$0 budget. 14 contracts. 4 chains. One phone.</strong><br>
           This is what happens when you stop asking for permission.
         </p>
       </div>
