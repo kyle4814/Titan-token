@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>TITANOS — Autonomous Intelligence on Base L2</title>
 <meta name="description" content="TITANOS (Ω) — Constitutional AI governance meets DeFi. Built from a phone by a forklift driver. Running on Base L2.">
 <meta property="og:title" content="TITANOS — Autonomous Intelligence">
@@ -21,10 +21,12 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;ov
 ::-webkit-scrollbar-track{background:var(--black)}
 ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
 
-/* Diamond sparkle particles */
+/* Diamond dust particles — blue */
 .sparkle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.sparkle{position:absolute;width:3px;height:3px;background:var(--diamond);border-radius:50%;opacity:0;animation:sparkle-float linear infinite}
-@keyframes sparkle-float{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:0.8}50%{opacity:0.3}90%{opacity:0.6}100%{opacity:0;transform:translateY(-10vh) scale(1.2)}}
+.sparkle{position:absolute;border-radius:50%;opacity:0;animation:sparkle-float linear infinite;box-shadow:0 0 6px 2px rgba(185,242,255,0.3)}
+.sparkle.diamond{width:6px;height:6px;background:transparent;border:1px solid var(--diamond);transform:rotate(45deg);border-radius:1px;box-shadow:0 0 8px 2px rgba(185,242,255,0.4),inset 0 0 3px rgba(185,242,255,0.2)}
+@keyframes sparkle-float{0%{opacity:0;transform:translateY(100vh) scale(0) rotate(0deg)}10%{opacity:0.9}30%{opacity:0.4}50%{opacity:0.7}70%{opacity:0.3}90%{opacity:0.8}100%{opacity:0;transform:translateY(-10vh) scale(1.2) rotate(180deg)}}
+@keyframes sparkle-drift{0%{opacity:0;transform:translate(0,100vh) scale(0)}15%{opacity:0.6}50%{opacity:0.2;transform:translate(30px,50vh) scale(1)}85%{opacity:0.5}100%{opacity:0;transform:translate(-20px,-10vh) scale(0.8)}}
 
 /* Vault door opening animation */
 .vault-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:none}
@@ -132,6 +134,56 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:60px 2
 /* Fade-in on scroll */
 .reveal{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
 .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media(max-width:480px){
+  section{padding:50px 14px}
+  .hero{min-height:90vh;min-height:90dvh;padding-top:20px}
+  .titan-logo{font-size:2.6rem;letter-spacing:0.08em}
+  .omega{font-size:2rem}
+  .hero-sub{font-size:0.8rem;margin:14px 0 28px}
+  .hero-links{gap:10px}
+  .hero-links a{padding:10px 16px;font-size:0.7rem;gap:6px;width:100%}
+  .hero-links a svg{width:15px;height:15px}
+  .section-header h2{font-size:1.2rem}
+  .section-header{margin-bottom:30px}
+  .chart-container iframe{height:300px}
+  .stats-row{grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  .stat-card{padding:16px 10px}
+  .stat-card .value{font-size:1.1rem}
+  .stat-card .label{font-size:0.65rem}
+  .story-text{font-size:0.85rem;line-height:1.7}
+  .constitution{padding:20px 16px}
+  .constitution h3{font-size:0.95rem}
+  .principle{padding:10px 0;gap:10px}
+  .principle .num{font-size:0.95rem;min-width:22px}
+  .principle .text{font-size:0.8rem}
+  footer{padding:40px 14px 20px}
+  .footer-grid{gap:24px;margin-bottom:24px}
+  .footer-brand .brand-name{font-size:1.1rem}
+  .contract-box{padding:14px}
+  .contract-box .address{font-size:0.55rem}
+  .contract-box .chain-badge{font-size:0.6rem}
+  .vault-emblem{font-size:2.5rem}
+  .vault-left,.vault-right{border-width:1px}
+}
+@media(max-width:360px){
+  .titan-logo{font-size:2.2rem}
+  .hero-links a{padding:9px 12px;font-size:0.65rem}
+  .stats-row{grid-template-columns:1fr}
+  .contract-box .address{font-size:0.5rem}
+}
+/* Touch targets — minimum 44px */
+@media(hover:none){
+  .hero-links a{min-height:44px}
+  .footer-col a{min-height:44px;display:flex;align-items:center}
+  .contract-box .address{min-height:44px;display:flex;align-items:center;justify-content:center}
+}
+/* Safe area for notched phones */
+@supports(padding:env(safe-area-inset-bottom)){
+  footer{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+  .hero{padding-top:calc(20px + env(safe-area-inset-top))}
+}
 </style>
 </head>
 <body>
@@ -319,17 +371,31 @@ window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('vault').style.display = 'none', 2200);
 });
 
-// Diamond sparkles
+// Blue diamond dust
 (function initSparkles() {
   const field = document.getElementById('sparkles');
-  const count = 30;
+  const isMobile = window.innerWidth < 600;
+  const count = isMobile ? 25 : 50;
+  const blues = ['#B9F2FF','#87CEEB','#7EC8E3','#A0D2DB','#C6E7FF','#5DADE2'];
   for (let i = 0; i < count; i++) {
     const s = document.createElement('div');
-    s.className = 'sparkle';
+    const isDiamond = Math.random() > 0.6;
+    s.className = isDiamond ? 'sparkle diamond' : 'sparkle';
     s.style.left = Math.random() * 100 + '%';
-    s.style.animationDuration = (8 + Math.random() * 12) + 's';
-    s.style.animationDelay = Math.random() * 15 + 's';
-    s.style.width = s.style.height = (2 + Math.random() * 3) + 'px';
+    const anim = Math.random() > 0.5 ? 'sparkle-float' : 'sparkle-drift';
+    s.style.animationName = anim;
+    s.style.animationDuration = (6 + Math.random() * 16) + 's';
+    s.style.animationDelay = Math.random() * 20 + 's';
+    const color = blues[Math.floor(Math.random() * blues.length)];
+    if (!isDiamond) {
+      const size = (1.5 + Math.random() * 3) + 'px';
+      s.style.width = s.style.height = size;
+      s.style.background = color;
+      s.style.boxShadow = '0 0 ' + (4 + Math.random()*6) + 'px 2px ' + color + '80';
+    } else {
+      s.style.borderColor = color;
+      s.style.boxShadow = '0 0 8px 2px ' + color + '60, inset 0 0 3px ' + color + '30';
+    }
     field.appendChild(s);
   }
 })();
